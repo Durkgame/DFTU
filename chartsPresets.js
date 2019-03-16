@@ -7,7 +7,7 @@ var hoverF = function (e, v) { // самый ежжи жесткий косты�
             document.querySelector("td.date").innerHTML = v[0]._chart.tooltip._data.labels[v[0]._index] || ''
         }
     }
-    console.log(e)
+    // console.log(e)
 }
 var clickF = function(e, v) {
     if (v === undefined) {
@@ -181,7 +181,10 @@ for (i = 0; i < GPUReq.length; i++) {
     tmp.options.tooltips.custom = tooltipF
     tmp.options.onHover = hoverF
     tmp.options.onClick = clickF
-    tmp.options.scales.xAxes[0].ticks.callback = function (value, index, values) { return value.split(' ')[0]; };
+    tmp.options.scales.xAxes[0].ticks.callback = function (value, index, values) { 
+        c = value.split(' ')[0].split('-');
+        return c[2]+'.'+c[1] + '.' +c[0].slice(2);
+    };
     tmp.options.title.text = GPUReq[i][1];
     tmp2 = copyObj(dataPreset);
     for (r=0; r < fullReq.length; r++) {
