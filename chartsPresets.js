@@ -18,6 +18,9 @@ var clickF = function(e, v) {
         }
     }
 }
+var clickToLegend = function (e, v) {
+    window.open(dataLines[e.target.getAttribute('index')][3][0])
+}
 var tooltipF = function (tooltipModel) {
     // Tooltip Element
     var tooltipEl = document.getElementById('chartjs-tooltip');
@@ -85,9 +88,12 @@ var options = {
     onHover: hoverF,
     onClick: clickF,
     title: {
-        display: true,
+        display: false,
         text: 'Кастомный заголовок',
         fontSize: '16'
+    },
+    legend: {
+      display: true,
     },
     animation: {
         duration: 0,
@@ -114,6 +120,8 @@ var options = {
             }
         }],
         xAxes: [{
+            // maxRotation: 0,
+            // minRotation: 0,
             ticks: {
                 callback: function (value, index, values) {
                     return value.split(' ')[0];
@@ -152,7 +160,7 @@ function makeGlobalChart(arr) {
 
 function makeSecondSheets(arr, min, cur) {
     for (let i = 0; i < min.length; i++) {
-        content.innerHTML += "<div class='sheet-container__con'><div class='sheet-container__chart'><canvas class='chart chart-second' width='2' height='1'></canvas></div><div class='sheet-container__legend'><div>Cur:<span class='current-price'>" + cur[i][1] + "</span></div><div>Min:<span class='min-price'>" + min[i][1] + "</span></div></div></div>";
+        content.innerHTML += "<div class='sheet-container__con'><div class='sheet-container__chart'><canvas class='chart chart-second' width='2' height='1' index='"+i+"'></canvas></div><div class='sheet-container__legend'><div>Cur:<span class='current-price'>" + cur[i][1] + "</span></div><div>Min:<span class='min-price'>" + min[i][1] + "</span></div></div></div>";
     }
 }
 
@@ -166,7 +174,7 @@ var dataLines = [];
 
 
 for (i = 0; i < GPUReq.length; i++) {
-    dataLines.push([[],[],[]])
+    dataLines.push([[],[],[],[]])
     for (r = 0; r < fullReq.length; r++) {
         if (fullReq[r][0] === GPUReq[i][0]) {
             dataLines[i][0].push(fullReq[r][3])
@@ -174,6 +182,7 @@ for (i = 0; i < GPUReq.length; i++) {
             dataLines[i][2].push(fullReq[r][4])
         }
     }
+    dataLines[i][3].push(GPUReq[i][2])
 }
 
 for (i = 0; i < GPUReq.length; i++) {
@@ -181,11 +190,12 @@ for (i = 0; i < GPUReq.length; i++) {
     tmp.options.tooltips.custom = tooltipF
     tmp.options.onHover = hoverF
     tmp.options.onClick = clickF
+    tmp.options.legend.onClick = clickToLegend
     tmp.options.scales.xAxes[0].ticks.callback = function (value, index, values) { 
         c = value.split(' ')[0].split('-');
         return c[2]+'.'+c[1] + '.' +c[0].slice(2);
     };
-    tmp.options.title.text = GPUReq[i][1];
+    // tmp.options.title.text = GPUReq[i][1];
     tmp2 = copyObj(dataPreset);
     for (r=0; r < fullReq.length; r++) {
         if (fullReq[r][0] === GPUReq[i][0]) {
