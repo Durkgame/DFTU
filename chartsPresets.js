@@ -193,7 +193,7 @@ for (i = 0; i < GPUReq.length; i++) {
     tmp.options.legend.onClick = clickToLegend
     tmp.options.scales.xAxes[0].ticks.callback = function (value, index, values) { 
         c = value.split(' ')[0].split('-');
-        return c[2]+'.'+c[1] + '.' +c[0].slice(2);
+        return c[2]+'.'+c[1]/*  + '.' +c[0].slice(2) */;
     };
     // tmp.options.title.text = GPUReq[i][1];
     tmp2 = copyObj(dataPreset);
