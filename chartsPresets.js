@@ -100,7 +100,7 @@ var options = {
     },
     elements: {
         point: {
-            hitRadius:30
+            hitRadius:3
         },
         line: {
             tension: 0,
