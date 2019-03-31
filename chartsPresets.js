@@ -154,9 +154,9 @@ var preset = {
 
 //////////////////////////
 
-function makeGlobalChart(arr) {
-    content.innerHTML += "<div class='chart-container chart-container--main'><canvas class='chart chart-main' width='3' height='1'></canvas></div>";
-}
+// function makeGlobalChart(arr) {
+//     content.innerHTML += "<div class='chart-container chart-container--main'><canvas class='chart chart-main' width='3' height='1'></canvas></div>";
+// }
 
 function makeSecondSheets(arr, min, cur) {
     for (let i = 0; i < min.length; i++) {
@@ -164,7 +164,7 @@ function makeSecondSheets(arr, min, cur) {
     }
 }
 
-makeGlobalChart(fullReq)
+// makeGlobalChart(fullReq)
 makeSecondSheets(fullReq, minPrices, currentPrices)
 
 
